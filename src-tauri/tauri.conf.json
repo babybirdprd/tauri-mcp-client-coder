@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-mcp-client-coder",
-        "width": 800,
-        "height": 600
+        "label": "main",
+        "title": "Tauri AI Studio Capture",
+        "width": 1024,
+        "height": 768,
+        "url": "/" 
       }
     ],
     "security": {

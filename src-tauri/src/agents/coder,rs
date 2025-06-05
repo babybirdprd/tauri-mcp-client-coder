@@ -1,0 +1,70 @@
+use std::sync::Arc;
+use parking_lot::Mutex;
+use crate::app_state::AppServices;
+use crate::models::{Task, CoderOutput, ChangedFileContent, FileAction, GlobalLogEntry, LogLevel, TaskAttempt, TaskType, ProjectSettings};
+use crate::error::{AppError, Result as AppResult};
+use crate::baml_client::{BamlClient, BamlCoderOutput, BamlChangedFileOutput, BamlFileAction};
+
+fn model_task_type_to_string(model_type: &TaskType) -> String { format!("{:?}", model_type) }
+fn baml_coder_output_to_model(baml_out: BamlCoderOutput, task_id_from_input: String) -> CoderOutput { /* ... as before ... */ CoderOutput { task_id: task_id_from_input, changed_files: vec![], generated_docs: vec![], notes: None, success: false, error_message: None } }
+
+pub struct CoderAgent {
+    services: Arc<AppServices>,
+    baml_client: Arc<BamlClient>,
+}
+
+impl CoderAgent {
+    pub fn new(services: Arc<AppServices>, baml_client: Arc<BamlClient>) -> Self { Self { services, baml_client } }
+
+    fn log_entry(&self, message: String, level: LogLevel, task_id: Option<String>, details: Option<serde_json::Value>) -> GlobalLogEntry {
+        GlobalLogEntry { id: Uuid::new_v4().to_string(), timestamp: std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_millis() as u64, level, component: "CoderAgent".to_string(), message, task_id, details }
+    }
+
+    pub async fn execute_task(
+        &self, task: &mut Task, relevant_code_context: &str, relevant_crate_docs: &str, settings: &ProjectSettings,
+    ) -> AppResult<(CoderOutput, Vec<GlobalLogEntry>)> {
+        let mut logs = Vec::new();
+        task.current_attempt_number += 1; // Increment attempt counter for this execution
+        let attempt_num = task.current_attempt_number;
+        let log_msg_prefix = format!("[Task {} Att.{}] ", task.id, attempt_num);
+
+        logs.push(self.log_entry(format!("{}Starting BAML execution.", log_msg_prefix), LogLevel::Info, Some(task.id.clone()), None));
+
+        let previous_attempt_feedback = if attempt_num > 1 {
+            task.attempts.last().map(|att| {
+                format!("Previous attempt ({}) failed. Verification Output (last 200 chars):\nSTDOUT: ...{}\nSTDERR: ...{}\nCoder Error: {:?}",
+                    att.attempt_number,
+                    att.verification_stdout.chars().rev().take(100).collect::<String>().chars().rev().collect::<String>(), // last 100 chars
+                    att.verification_stderr.chars().rev().take(100).collect::<String>().chars().rev().collect::<String>(), // last 100 chars
+                    att.llm_error_summary.as_deref().unwrap_or("N/A")
+                )
+            })
+        } else { None };
+
+        let baml_output: BamlCoderOutput = self.baml_client.execute_coding_task(
+            &task.id, &task.description, &model_task_type_to_string(&task.task_type),
+            relevant_code_context, relevant_crate_docs, previous_attempt_feedback.as_deref(),
+        ).await.map_err(|e| {
+            logs.push(self.log_entry(format!("{}BAML ExecuteCodingTask LLM call failed: {:?}", log_msg_prefix, e), LogLevel::Error, Some(task.id.clone()), None));
+            AppError::Llm(format!("BAML ExecuteCodingTask: {:?}", e))
+        })?;
+
+        let coder_output_model = baml_coder_output_to_model(baml_output, task.id.clone());
+
+        // Create and store the attempt record. Verification results will be added later by Planner.
+        let attempt_record = TaskAttempt {
+            attempt_number: attempt_num,
+            code_generated_summary: Some(format!("{} files changed, {} docs changed.", coder_output_model.changed_files.len(), coder_output_model.generated_docs.len())),
+            docs_generated_summary: None, // Could be more specific
+            verification_stdout: "Pending verification".to_string(),
+            verification_stderr: "Pending verification".to_string(),
+            verification_exit_code: -999, // Sentinel for pending
+            llm_error_summary: coder_output_model.error_message.clone(), // Error from LLM itself, if any
+            coder_notes: coder_output_model.notes.clone(),
+        };
+        task.attempts.push(attempt_record);
+
+        logs.push(self.log_entry(format!("{}BAML execution attempt finished. Coder success: {}", log_msg_prefix, coder_output_model.success), LogLevel::Info, Some(task.id.clone()), Some(serde_json::json!({"coder_notes": coder_output_model.notes}))));
+        Ok((coder_output_model, logs))
+    }
+}
