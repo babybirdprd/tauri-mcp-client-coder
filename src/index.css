@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-background: #111827;
+  --color-surface: #1F2937;
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-secondary: #10B981;
+  --color-text-main: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-tertiary: #4B5563;
+  --color-border: #374151;
+  
+  --font-sans: Inter, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
 
 body {
   @apply bg-background text-text-main font-sans;

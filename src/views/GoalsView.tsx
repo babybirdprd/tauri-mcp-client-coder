@@ -119,7 +119,7 @@ const GoalsView: React.FC<GoalsViewProps> = ({ sessionState, refreshSessionState
         ) : (
           <ul className="space-y-3">
             {specs.map(spec => (
-              <li key={spec.path} className="p-4 bg-background rounded-md shadow-sm flex justify-between items-center hover:bg-gray-700/50 transition-colors">
+              <li key={spec.relative_path} className="p-4 bg-background rounded-md shadow-sm flex justify-between items-center hover:bg-gray-700/50 transition-colors">
                 <div>
                   <h4 className="font-semibold text-lg text-text-main">{spec.name}</h4>
                   <p className="text-sm text-text-secondary truncate max-w-md" title={spec.content_preview}>{spec.content_preview}</p>

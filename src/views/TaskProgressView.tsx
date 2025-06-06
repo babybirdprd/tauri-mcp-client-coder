@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Task } from '../types';
-import { CheckCircle, XCircle, Loader, Clock, GitBranch, AlertCircle, BrainCircuit } from 'lucide-react';
+import { CheckCircle, XCircle, Loader, Clock, GitBranch, AlertCircle, BrainCircuit, Play, ListChecks } from 'lucide-react';
 
 interface TaskProgressViewProps {
   tasks: Task[];

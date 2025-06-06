@@ -12,7 +12,7 @@ import ArchitectureView from "./views/ArchitectureView";
 import LearningCenterView from "./views/LearningCenterView";
 import WhiteboardView from "./views/WhiteboardView";
 import HumanInputDialog from "./components/HumanInputDialog";
-import TaskDetailModal from "./components/TaskDetailModal";
+import TaskDetailModal from "./views/TaskDetailView";
 import { Task } from "./types";
 
 function App() {
