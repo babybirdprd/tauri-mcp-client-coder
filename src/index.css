@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  @apply bg-gray-900 text-gray-200 font-sans;
+  @apply bg-background text-text-main font-sans;
 }
 
 /* Custom scrollbar for a more modern look */
@@ -12,10 +14,10 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #1f2937; /* gray-800 */
+  background: #1f2937; /* surface */
 }
 ::-webkit-scrollbar-thumb {
-  background: #4b5563; /* gray-600 */
+  background: #4b5563; /* text-tertiary */
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

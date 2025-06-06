@@ -1,45 +1,24 @@
-import { useState, useEffect, useCallback } from "react";
-import { tauriApi, listenToGlobalLogEvents, listenToCargoStreamEvents, listenToHumanInputRequestEvents, GlobalLogEntry, CurrentProjectSession } from "./utils/tauriApi";
+import { useState } from "react";
+import { useTauriState } from "./hooks/useTauriState";
+import { tauriApi } from "./utils/tauriApi";
 import Nav, { ViewName } from "./components/Nav";
-import Dashboard from "./components/Dashboard";
-import SpecsView from "./components/SpecsView";
-import TaskProgressView from "./components/TaskProgressView";
-import KnowledgeBaseView from "./components/KnowledgeBaseView";
-import SystemTerminalView from "./components/SystemTerminalView";
-import SettingsView from "./components/SettingsView";
+import DashboardView from "./views/DashboardView";
+import GoalsView from "./views/GoalsView";
+import TaskProgressView from "./views/TaskProgressView";
+import KnowledgeBaseView from "./views/KnowledgeBaseView";
+import SystemTerminalView from "./views/SystemTerminalView";
+import SettingsView from "./views/SettingsView";
+import ArchitectureView from "./views/ArchitectureView";
+import LearningCenterView from "./views/LearningCenterView";
+import WhiteboardView from "./views/WhiteboardView";
 import HumanInputDialog from "./components/HumanInputDialog";
+import TaskDetailModal from "./components/TaskDetailModal";
+import { Task } from "./types";
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewName>("Dashboard");
-  const [sessionState, setSessionState] = useState<CurrentProjectSession | null>(null);
-  const [logs, setLogs] = useState<GlobalLogEntry[]>([]);
-  const [cargoStream, setCargoStream] = useState<string[]>([]);
-  const [humanInputRequest, setHumanInputRequest] = useState<{taskId: string, prompt: string} | null>(null);
-
-  const refreshSessionState = useCallback(() => {
-    tauriApi.getCurrentSessionState()
-      .then(state => setSessionState(state))
-      .catch(err => console.error("Failed to get session state:", err));
-  }, []);
-
-  useEffect(() => {
-    refreshSessionState();
-    const unlistenLogs = listenToGlobalLogEvents((event) => {
-      setLogs(prev => [...prev, event.payload].sort((a, b) => a.timestamp - b.timestamp).slice(-200));
-      if (event.payload.level === "Error" || event.payload.message.includes("loop finished") || event.payload.message.includes("Decomposition complete")) {
-          refreshSessionState();
-      }
-    });
-    const unlistenCargo = listenToCargoStreamEvents((event) => setCargoStream(prev => [...prev, event.payload].slice(-100)));
-    const unlistenHumanInput = listenToHumanInputRequestEvents((event) => setHumanInputRequest(event.payload));
-    const intervalId = setInterval(refreshSessionState, 5000);
-    return () => {
-      unlistenLogs.then(f => f());
-      unlistenCargo.then(f => f());
-      unlistenHumanInput.then(f => f());
-      clearInterval(intervalId);
-    };
-  }, [refreshSessionState]);
+  const { sessionState, logs, cargoStream, humanInputRequest, setHumanInputRequest, refreshSessionState, isLoading } = useTauriState();
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const handleHumanResponseSubmit = async (taskId: string, responseText: string) => {
     try {
@@ -50,21 +29,32 @@ function App() {
   };
 
   const renderView = () => {
+    if (isLoading && !sessionState) {
+        return <div className="flex items-center justify-center h-full"><p>Initializing Cognito Pilot...</p></div>;
+    }
+    if (!sessionState?.project_path) {
+        // If no project is loaded, force the Goals/Specs view to load one.
+        return <GoalsView sessionState={sessionState} refreshSessionState={refreshSessionState} />;
+    }
+
     switch (currentView) {
-      case "Dashboard": return <Dashboard sessionState={sessionState} />;
-      case "Specs": return <SpecsView refreshSessionState={refreshSessionState} />;
-      case "Tasks": return <TaskProgressView tasks={sessionState?.tasks || []} currentExecutingTaskId={sessionState?.current_task_id_executing} />;
+      case "Dashboard": return <DashboardView sessionState={sessionState} />;
+      case "Goals": return <GoalsView sessionState={sessionState} refreshSessionState={refreshSessionState} />;
+      case "Tasks": return <TaskProgressView tasks={sessionState?.tasks || []} currentExecutingTaskId={sessionState?.current_task_id_executing} onTaskSelect={setSelectedTask} />;
+      case "Architecture": return <ArchitectureView />;
+      case "Learning": return <LearningCenterView />;
+      case "Whiteboard": return <WhiteboardView />;
       case "Knowledge": return <KnowledgeBaseView knownCrates={sessionState?.known_crates || []} />;
       case "Terminal": return <SystemTerminalView logs={logs} cargoStream={cargoStream} />;
       case "Settings": return <SettingsView />;
-      default: return <Dashboard sessionState={sessionState} />;
+      default: return <DashboardView sessionState={sessionState} />;
     }
   };
 
   return (
-    <div className="flex h-screen bg-gray-900 text-gray-100 font-sans">
+    <div className="flex h-screen bg-background text-text-main font-sans">
       <Nav setCurrentView={setCurrentView} currentView={currentView} />
-      <main className="flex-1 p-6 ml-56 overflow-y-auto">
+      <main className="flex-1 p-8 ml-64 overflow-y-auto">
         {renderView()}
       </main>
       {humanInputRequest && (
@@ -73,6 +63,12 @@ function App() {
           prompt={humanInputRequest.prompt}
           onSubmit={handleHumanResponseSubmit}
           onClose={() => setHumanInputRequest(null)}
+        />
+      )}
+      {selectedTask && (
+        <TaskDetailModal
+          task={selectedTask}
+          onClose={() => setSelectedTask(null)}
         />
       )}
     </div>
