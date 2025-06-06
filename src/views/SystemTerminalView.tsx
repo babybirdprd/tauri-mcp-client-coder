@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import type { GlobalLogEntry } from '../types';
 import { LogLevel } from '../types'; // Assuming LogLevel is exported from types
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 interface SystemTerminalViewProps {
   logs: GlobalLogEntry[];

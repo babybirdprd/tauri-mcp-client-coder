@@ -88,10 +88,12 @@ export interface CrateInfo {
   last_qualified_at: number | null;
 }
 
+export type LogLevel = 'Info' | 'Warn' | 'Error' | 'Debug' | 'AgentTrace' | 'HumanInput' | 'LLMTrace';
+
 export interface GlobalLogEntry {
   id: string;
   timestamp: number;
-  level: 'Info' | 'Warn' | 'Error' | 'Debug' | 'AgentTrace' | 'HumanInput' | 'LLMTrace';
+  level: LogLevel;
   component: string;
   message: string;
   task_id: string | null;
