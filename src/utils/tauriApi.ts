@@ -6,26 +6,31 @@ import {
 } from "@tauri-apps/api/event";
 
 // --- Replicated Rust Models (ensure these match Rust exactly) ---
+// TODO: Manually define these interfaces to match the Rust structs in `models.rs`
 export interface ProjectSettings {
-  /* ... */
+  [key: string]: any;
 }
 export interface CurrentProjectSession {
-  /* ... */
+  [key: string]: any;
 }
 export interface Task {
-  /* ... */
+  [key: string]: any;
 }
 export interface SpecFile {
-  /* ... */
+  [key: string]: any;
 }
 export interface CrateInfo {
-  /* ... */
+  [key: string]: any;
 }
 export interface GlobalLogEntry {
-  /* ... */
+  id: string;
+  timestamp: number;
+  level: string;
+  component: string;
+  message: string;
+  task_id?: string;
+  details?: any;
 }
-// --- End Replicated Rust Models ---
-
 export interface TantivySearchResultItem {
   score: number;
   relative_path: string;
@@ -33,18 +38,7 @@ export interface TantivySearchResultItem {
   doc_type: string;
   snippet_html?: string;
 }
-
-export const tauriApi = {
-  // ... existing api functions ...
-  rebuildProjectSearchIndex: (): Promise<void> =>
-    invoke("rebuild_project_search_index"),
-  searchProjectGlobally: (
-    query: string,
-    docTypeFilter?: string,
-    limit?: number,
-  ): Promise<TantivySearchResultItem[]> =>
-    invoke("search_project_globally", { query, docTypeFilter, limit }),
-};
+// --- End Replicated Rust Models ---
 
 export const tauriApi = {
   loadSettings: (): Promise<ProjectSettings> => invoke("load_settings"),
@@ -64,15 +58,20 @@ export const tauriApi = {
     invoke("load_spec_files_from_project"),
   startFullProcessingForSpec: (specRelativePath: string): Promise<void> =>
     invoke("start_full_processing_for_spec", { specRelativePath }),
-  // runNextAvailableTask: (): Promise<void> => invoke("run_next_available_task"), // May not be needed if loop is internal
   submitHumanResponse: (taskId: string, responseText: string): Promise<void> =>
     invoke("submit_human_response", { taskId, responseText }),
   getCrateInfo: (crateName: string): Promise<CrateInfo | null> =>
     invoke("get_crate_info_cmd", { crateName }),
   approveCrate: (crateName: string): Promise<void> =>
     invoke("approve_crate_cmd", { crateName }),
-  searchCodebase: (query: string, filePattern?: string): Promise<string> =>
-    invoke("search_codebase", { query, filePattern }),
+  rebuildProjectSearchIndex: (): Promise<void> =>
+    invoke("rebuild_project_search_index"),
+  searchProjectGlobally: (
+    query: string,
+    docTypeFilter?: string,
+    limit?: number,
+  ): Promise<TantivySearchResultItem[]> =>
+    invoke("search_project_globally", { query, docTypeFilter, limit }),
 };
 
 export async function listenToGlobalLogEvents(
@@ -90,4 +89,3 @@ export async function listenToHumanInputRequestEvents(
 ): Promise<UnlistenFn> {
   return await listen("human-input-request", handler);
 }
-// Add more event listeners as needed (e.g., "session-state-changed")

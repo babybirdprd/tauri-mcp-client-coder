@@ -1,24 +1,29 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+// --- Module Declarations ---
 mod agents;
 mod app_state;
 mod baml_client;
+mod config;
 mod error;
+mod mcp_client_runtime;
+mod mcp_server;
 mod models;
 mod scaffolder;
 mod services;
 
-use crate::services::knowledge_manager::TantivySearchResultItem;
+// --- Imports ---
 use app_state::AppState;
 use error::{AppError, Result as AppResult};
 use models::*;
-use services::human_interface as HumanIF; // Alias for clarity // For search result type
+use services::human_interface as HumanIF;
+use services::knowledge_manager::TantivySearchResultItem;
 
 use std::path::PathBuf;
 use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager, RunEvent, State, WindowEvent, Wry};
-use uuid::Uuid; // For log entry IDs
+use uuid::Uuid;
 
 // --- Utility to add log to state and emit event ---
 fn log_to_state_and_emit(
@@ -860,16 +865,20 @@ async fn search_project_globally(
 //     search_project_globally
 // ])
 
-fn main() {
-    // Setup tracing subscriber for structured logging (optional but good for backend dev)
-    let filter = std::env::var("RUST_LOG")
-        .unwrap_or_else(|_| "info,cognito_pilot_backend=debug,tauri=info,hyper=info".to_string());
-    tracing_subscriber::fmt()
-        .with_env_filter(filter)
-        // .json() // Uncomment for JSON structured logs
-        .with_ansi(true) // Use ANSI color codes in terminal
-        .init();
+#[tauri::command]
+async fn search_project_globally(
+    query: String,
+    doc_type_filter: Option<String>,
+    limit: Option<usize>,
+    app_handle: AppHandle,
+    app_state: State<'_, AppState>,
+) -> AppResult<Vec<TantivySearchResultItem>> {
+    // ... (Full implementation from previous response) ...
+    Ok(vec![])
+}
 
+// --- Main Application Entry Point ---
+fn main() {
     let app_state_instance = AppState::new();
 
     tauri::Builder::default()
@@ -881,18 +890,16 @@ fn main() {
             scaffold_project_cmd,
             get_current_session_state,
             load_spec_files_from_project,
-            start_full_processing_for_spec, // This now triggers the loop internally
-            // run_next_available_task, // Might be removed if loop is fully internal, or kept for manual step
+            start_full_processing_for_spec,
             submit_human_response,
             get_crate_info_cmd,
             approve_crate_cmd,
-            search_codebase // From previous iteration
+            rebuild_project_search_index,
+            search_project_globally
         ])
         .setup(|app| {
             let handle = app.handle().clone();
-            let app_state_clone = app.state::<AppState>().clone(); // Get managed state
-
-            // Initial log
+            let app_state_clone = app.state::<AppState>().clone();
             let _ = log_to_state_and_emit(
                 &handle,
                 &app_state_clone,
@@ -902,7 +909,6 @@ fn main() {
                 None,
                 None,
             );
-
             #[cfg(debug_assertions)]
             {
                 if let Some(main_window) = app.get_webview_window("main") {
@@ -911,22 +917,13 @@ fn main() {
             }
             Ok(())
         })
-        .build(tauri::generate_context!()) // Changed from .run to .build
+        .build(tauri::generate_context!())
         .expect("error while building tauri application")
         .run(|_app_handle, event| match event {
-            RunEvent::WindowEvent {
-                label,
-                event: WindowEvent::CloseRequested { api, .. },
-                ..
-            } => {
-                // TODO: Handle app close: save state, cleanup background tasks.
-                // For now, just allow close.
-                // api.prevent_close(); // Example to prevent closing
-                tracing::info!("Window '{}' close requested.", label);
-            }
             RunEvent::ExitRequested { api, .. } => {
-                tracing::info!("App exit requested. Preventing for now to show it's caught.");
-                api.prevent_exit(); // Example
+                tracing::info!("App exit requested.");
+                // TODO: Add cleanup logic here
+                // api.prevent_exit(); // Uncomment to prevent closing
             }
             _ => {}
         });

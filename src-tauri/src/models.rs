@@ -1,15 +1,13 @@
 use serde::{Serialize, Deserialize};
-use crate::error::AppError;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct ProjectSettings {
-    pub tier1_llm_model_alias: String, // e.g., "gpt-4-omni-equivalent" (maps to actual model in BAML options)
-    pub tier2_llm_model_alias: String, // e.g., "haiku-equivalent"
-    pub llm_api_key: Option<String>, // Could be managed by BAML runtime or environment
+    pub tier1_llm_model_alias: String,
+    pub tier2_llm_model_alias: String,
+    pub llm_api_key: Option<String>,
     pub autonomy_level: AutonomyLevel,
     pub git_commit_strategy: GitCommitStrategy,
     pub max_self_correction_attempts: u32,
-    pub project_scaffold_template_url: Option<String>, // For custom templates
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
@@ -20,8 +18,7 @@ pub enum GitCommitStrategy { #[default] PerTask, PerFeature, Manual }
 #[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum ProjectStatus {
     #[default] Unloaded, Idle, Planning, ReadyToExecute, ExecutingTask,
-    AwaitingHumanInput(String), // Prompt for human
-    SelfCorrecting(String), // Task ID being corrected
+    AwaitingHumanInput(String), SelfCorrecting(String),
     Paused, Error(String), CompletedGoal,
 }
 
@@ -29,18 +26,18 @@ pub enum ProjectStatus {
 pub enum TaskStatus {
     Pending, Ready, InProgress, BlockedByDependency,
     BlockedByError(String), AwaitingHumanClarification,
+
     CompletedSuccess, CompletedWithWarnings, Failed,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TaskAttempt {
     pub attempt_number: u32,
-    pub code_generated_summary: Option<String>, // e.g., "Modified 2 files, added 1 function"
-    pub docs_generated_summary: Option<String>,
+    pub code_generated_summary: Option<String>,
     pub verification_stdout: String,
     pub verification_stderr: String,
     pub verification_exit_code: i32,
-    pub llm_error_summary: Option<String>, // Error from LLM/BAML call itself
+    pub llm_error_summary: Option<String>,
     pub coder_notes: Option<String>,
 }
 
@@ -50,7 +47,7 @@ pub struct Task {
     pub task_type: TaskType, pub status: TaskStatus, pub context_summary: String,
     pub dependencies: Vec<String>, pub sub_task_ids: Vec<String>,
     pub attempts: Vec<TaskAttempt>, pub current_attempt_number: u32,
-    pub last_coder_output: Option<CoderOutput>, // Store the last output for review/retry
+    pub last_coder_output: Option<CoderOutput>,
     pub human_review_notes: Option<String>,
 }
 
@@ -65,7 +62,7 @@ pub enum TaskType {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct CoderOutput {
     pub task_id: String, pub changed_files: Vec<ChangedFileContent>,
-    pub generated_docs: Vec<ChangedFileContent>, // For codebase-docs
+    pub generated_docs: Vec<ChangedFileContent>,
     pub notes: Option<String>, pub success: bool, pub error_message: Option<String>,
 }
 
@@ -79,7 +76,7 @@ pub enum FileAction { Created, Modified, Deleted }
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SpecFile {
     pub name: String, pub relative_path: String,
-    pub content_preview: String, pub status: String, // "Pending", "Planning", "Executing", "Completed"
+    pub content_preview: String, pub status: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -97,7 +94,6 @@ pub enum LogLevel { Info, Warn, Error, Debug, AgentTrace, HumanInput, LLMTrace }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct GlobalLogEntry {
-    pub id: String, // UUID for unique key in UI
-    pub timestamp: u64, pub level: LogLevel, pub component: String, // Agent, Service, System
+    pub id: String, pub timestamp: u64, pub level: LogLevel, pub component: String,
     pub message: String, pub task_id: Option<String>, pub details: Option<serde_json::Value>,
 }

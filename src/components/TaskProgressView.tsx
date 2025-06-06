@@ -14,18 +14,29 @@ const TaskItem: React.FC<{ task: TaskType; level: number; isExecuting: boolean }
     switch (task.status) {
       case 'CompletedSuccess': return 'border-green-500';
       case 'InProgress': return 'border-yellow-500'; // Should be covered by isExecuting
-      case 'Failed': case 'BlockedByError': return 'border-red-500';
-      case 'Pending': case 'Ready': return 'border-gray-600';
+      case 'Failed':
+      case 'BlockedByError': return 'border-red-500';
+      case 'Pending':
+      case 'Ready': return 'border-gray-600';
       default: return 'border-gray-500';
     }
   };
+
+  const statusBgColor = () => {
+    switch (task.status) {
+        case 'CompletedSuccess': return 'bg-green-600 text-green-100';
+        case 'InProgress': return 'bg-yellow-600 text-yellow-100';
+        case 'Failed':
+        case 'BlockedByError': return 'bg-red-600 text-red-100';
+        default: return 'bg-gray-500 text-gray-100';
+    }
+  }
+
   return (
     <div style={{ marginLeft: `${level * 20}px` }} className={`mb-2 p-3 bg-gray-800 rounded border-l-4 ${statusColor()}`}>
       <div className="flex justify-between items-center">
         <span className="font-medium text-white text-sm">{task.description.substring(0,100)}{task.description.length > 100 ? '...' : ''}</span>
-        <span className={`px-2 py-0.5 text-xs rounded-full ${
-          task.status === 'CompletedSuccess' ? 'bg-green-600 text-green-100' : /* ... more colors ... */ 'bg-gray-500 text-gray-100'
-        }`}>
+        <span className={`px-2 py-0.5 text-xs rounded-full ${statusBgColor()}`}>
           {task.status.toString().startsWith('BlockedByError') ? 'Blocked' : task.status.toString()}
         </span>
       </div>
@@ -42,7 +53,9 @@ const TaskProgressView: React.FC<TaskProgressViewProps> = ({ tasks, currentExecu
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-6 text-indigo-400">Task Progress</h2>
       {/* TODO: Add controls to trigger run_main_execution_loop if system is Paused/Idle */}
-      {tasks.length === 0 ? ( /* ... */ ) : (
+      {tasks.length === 0 ? (
+        <p className="text-gray-400">No tasks planned yet. Process a specification to see tasks here.</p>
+      ) : (
         <div className="space-y-3">
           {tasks.map(task => (
             <TaskItem key={task.id} task={task} level={0} isExecuting={task.id === currentExecutingTaskId} />
@@ -52,4 +65,5 @@ const TaskProgressView: React.FC<TaskProgressViewProps> = ({ tasks, currentExecu
     </div>
   );
 };
+
 export default TaskProgressView;

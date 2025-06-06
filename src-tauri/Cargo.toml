@@ -27,19 +27,45 @@ tauri-plugin-shell = "2"
 tauri-plugin-dialog = "2"
 tauri-plugin-clipboard = "2"
 
-tokio = { version = "1.35", features = ["full"] } # For async operations, ensure version
 thiserror = "1.0"
 parking_lot = "0.12"
 uuid = { version = "1.6", features = ["v4", "serde"] }
 tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] } # For structured logging
-baml-client = { path = "./baml_client" }
-reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
-tantivy = "0.22" # Check for latest version
-syn = { version = "2.0", features = ["full", "parsing", "visit"] } # For parsing Rust code
-walkdir = "2" # For recursively finding files to index
+tracing-subscriber = { version = "0.3", features = [
+    "env-filter",
+    "json",
+] } # For structured logging
 
-[features]
-default = ["dev-server"] # Enable dev server by default for tauri dev
-dev-server = ["tauri/dev-server"]
-# custom-protocol = ["tauri/custom-protocol"] # If needed later
+reqwest = { version = "0.12", features = [
+    "json",
+    "rustls-tls",
+], default-features = false }
+tantivy = "0.22" # Check for latest version
+syn = { version = "2.0", features = [
+    "full",
+    "parsing",
+    "visit",
+] } # For parsing Rust code
+walkdir = "2" # For recursively finding files to index
+toml = "0.8"
+lazy_static = "1.4"
+async-trait = "0.1"
+
+
+# --- MCP SDK Integration ---
+# This will be used for the internal tool server.
+rust-mcp-sdk = { version = "0.4.2", default-features = false, features = [
+    "server",
+    "macros",
+    "hyper-server",
+    "ssl",
+    "2025_03_26",
+] }
+rust-mcp-schema = { version = "0.5", default-features = false, features = [
+    "2025_03_26",
+    "schema_utils",
+] }
+
+# --- BAML Client (as a path dependency) ---
+# This assumes a `baml_client` directory will be created next to `src`
+# baml-client = { path = "../baml_client" } # We will stub this for now

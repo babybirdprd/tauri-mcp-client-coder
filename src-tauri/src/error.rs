@@ -1,7 +1,7 @@
 use serde::Serialize;
 use thiserror::Error;
 
-#[derive(Debug, Error, Serialize, Clone)] // Added Clone
+#[derive(Debug, Error, Serialize, Clone)]
 pub enum AppError {
     #[error("IO Error: {0}")]
     Io(String),
@@ -31,19 +31,11 @@ pub enum AppError {
     InvalidState { current_state: String, expected_state: String, operation: String },
 }
 
-impl From<std::io::Error> for AppError {
-    fn from(err: std::io::Error) -> Self { AppError::Io(err.to_string()) }
-}
-impl From<serde_json::Error> for AppError {
-    fn from(err: serde_json::Error) -> Self { AppError::Serialization(err.to_string()) }
-}
-impl From<tauri::Error> for AppError {
-    fn from(err: tauri::Error) -> Self { AppError::Tauri(err.to_string()) }
-}
-// Add From<reqwest::Error> if BAML client uses reqwest directly and doesn't map errors
-impl From<reqwest::Error> for AppError {
-    fn from(err: reqwest::Error) -> Self { AppError::Llm(format!("HTTP Client (reqwest) Error: {}", err)) }
-}
-
+impl From<std::io::Error> for AppError { fn from(err: std::io::Error) -> Self { AppError::Io(err.to_string()) } }
+impl From<serde_json::Error> for AppError { fn from(err: serde_json::Error) -> Self { AppError::Serialization(err.to_string()) } }
+impl From<tauri::Error> for AppError { fn from(err: tauri::Error) -> Self { AppError::Tauri(err.to_string()) } }
+impl From<reqwest::Error> for AppError { fn from(err: reqwest::Error) -> Self { AppError::Llm(format!("HTTP Client Error: {}", err)) } }
+impl From<tantivy::TantivyError> for AppError { fn from(err: tantivy::TantivyError) -> Self { AppError::Service { service: "KnowledgeManager".into(), message: format!("Tantivy Error: {}", err) } } }
+impl From<tantivy::query::QueryParserError> for AppError { fn from(err: tantivy::query::QueryParserError) -> Self { AppError::Service { service: "KnowledgeManager".into(), message: format!("Tantivy Query Parser Error: {}", err) } } }
 
 pub type Result<T, E = AppError> = std::result::Result<T, E>;
