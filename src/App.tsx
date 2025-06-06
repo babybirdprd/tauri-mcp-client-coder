@@ -37,7 +37,9 @@ function App() {
     if (isLoading && !sessionState) {
         return <div className="flex items-center justify-center h-full"><p>Initializing Cognito Pilot...</p></div>;
     }
-    if (!sessionState?.project_path) {
+    // Only force Goals view if we have a session but no project path
+    // This allows navigation during development when sessionState is null
+    if (sessionState && !sessionState.project_path) {
         // If no project is loaded, force the Goals/Specs view to load one.
         console.log('No project path found, forcing Goals view');
         return <GoalsView sessionState={sessionState} refreshSessionState={refreshSessionState} />;
