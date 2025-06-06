@@ -17,6 +17,9 @@ import { Task } from "./types";
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewName>("Dashboard");
+  
+  // Debug logging
+  console.log('Current view state:', currentView);
   const { sessionState, logs, cargoStream, humanInputRequest, setHumanInputRequest, refreshSessionState, isLoading } = useTauriState();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
@@ -29,11 +32,14 @@ function App() {
   };
 
   const renderView = () => {
+    console.log('renderView - isLoading:', isLoading, 'sessionState:', sessionState, 'project_path:', sessionState?.project_path);
+    
     if (isLoading && !sessionState) {
         return <div className="flex items-center justify-center h-full"><p>Initializing Cognito Pilot...</p></div>;
     }
     if (!sessionState?.project_path) {
         // If no project is loaded, force the Goals/Specs view to load one.
+        console.log('No project path found, forcing Goals view');
         return <GoalsView sessionState={sessionState} refreshSessionState={refreshSessionState} />;
     }
 

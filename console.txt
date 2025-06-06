@@ -1,0 +1,350 @@
+App.tsx:22 Current view state: Dashboard
+App.tsx:35 renderView - isLoading: true sessionState: null project_path: undefined
+App.tsx:22 Current view state: Dashboard
+App.tsx:35 renderView - isLoading: true sessionState: null project_path: undefined
+useTauriState.ts:22 Failed to get session state: TypeError: Cannot read properties of undefined (reading 'invoke')
+    at invoke (chunk-EHGI4SLN.js?v=44844adf:100:37)
+    at Object.getCurrentSessionState (tauriApi.ts:17:65)
+    at useTauriState.ts:14:14
+    at useTauriState.ts:27:5
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at commitPassiveMountOnFiber (chunk-HBJ3AJOL.js?v=44844adf:18206:19)
+    at commitPassiveMountEffects_complete (chunk-HBJ3AJOL.js?v=44844adf:18179:17)
+    at commitPassiveMountEffects_begin (chunk-HBJ3AJOL.js?v=44844adf:18169:15)
+    at commitPassiveMountEffects (chunk-HBJ3AJOL.js?v=44844adf:18159:11)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19543:11)
+overrideMethod @ hook.js:608
+(anonymous) @ useTauriState.ts:22
+Promise.catch
+(anonymous) @ useTauriState.ts:22
+(anonymous) @ useTauriState.ts:27
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+commitPassiveMountOnFiber @ chunk-HBJ3AJOL.js?v=44844adf:18206
+commitPassiveMountEffects_complete @ chunk-HBJ3AJOL.js?v=44844adf:18179
+commitPassiveMountEffects_begin @ chunk-HBJ3AJOL.js?v=44844adf:18169
+commitPassiveMountEffects @ chunk-HBJ3AJOL.js?v=44844adf:18159
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19543
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+useTauriState.ts:22 Failed to get session state: TypeError: Cannot read properties of undefined (reading 'invoke')
+    at invoke (chunk-EHGI4SLN.js?v=44844adf:100:37)
+    at Object.getCurrentSessionState (tauriApi.ts:17:65)
+    at useTauriState.ts:14:14
+    at useTauriState.ts:27:5
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at invokePassiveEffectMountInDEV (chunk-HBJ3AJOL.js?v=44844adf:18374:19)
+    at invokeEffectsInDev (chunk-HBJ3AJOL.js?v=44844adf:19754:19)
+    at commitDoubleInvokeEffectsInDEV (chunk-HBJ3AJOL.js?v=44844adf:19739:15)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19556:13)
+    at flushPassiveEffects (chunk-HBJ3AJOL.js?v=44844adf:19500:22)
+overrideMethod @ hook.js:608
+(anonymous) @ useTauriState.ts:22
+Promise.catch
+(anonymous) @ useTauriState.ts:22
+(anonymous) @ useTauriState.ts:27
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToGlobalLogEvents (tauriApi.ts:39:16)
+    at useTauriState.ts:30:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at invokePassiveEffectMountInDEV (chunk-HBJ3AJOL.js?v=44844adf:18374:19)
+    at invokeEffectsInDev (chunk-HBJ3AJOL.js?v=44844adf:19754:19)
+    at commitDoubleInvokeEffectsInDEV (chunk-HBJ3AJOL.js?v=44844adf:19739:15)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19556:13)
+    at flushPassiveEffects (chunk-HBJ3AJOL.js?v=44844adf:19500:22)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToGlobalLogEvents @ tauriApi.ts:39
+(anonymous) @ useTauriState.ts:30
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToCargoStreamEvents (tauriApi.ts:42:16)
+    at useTauriState.ts:37:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at invokePassiveEffectMountInDEV (chunk-HBJ3AJOL.js?v=44844adf:18374:19)
+    at invokeEffectsInDev (chunk-HBJ3AJOL.js?v=44844adf:19754:19)
+    at commitDoubleInvokeEffectsInDEV (chunk-HBJ3AJOL.js?v=44844adf:19739:15)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19556:13)
+    at flushPassiveEffects (chunk-HBJ3AJOL.js?v=44844adf:19500:22)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToCargoStreamEvents @ tauriApi.ts:42
+(anonymous) @ useTauriState.ts:37
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToHumanInputRequestEvents (tauriApi.ts:45:16)
+    at useTauriState.ts:40:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at invokePassiveEffectMountInDEV (chunk-HBJ3AJOL.js?v=44844adf:18374:19)
+    at invokeEffectsInDev (chunk-HBJ3AJOL.js?v=44844adf:19754:19)
+    at commitDoubleInvokeEffectsInDEV (chunk-HBJ3AJOL.js?v=44844adf:19739:15)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19556:13)
+    at flushPassiveEffects (chunk-HBJ3AJOL.js?v=44844adf:19500:22)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToHumanInputRequestEvents @ tauriApi.ts:45
+(anonymous) @ useTauriState.ts:40
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToGlobalLogEvents (tauriApi.ts:39:16)
+    at useTauriState.ts:30:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at commitPassiveMountOnFiber (chunk-HBJ3AJOL.js?v=44844adf:18206:19)
+    at commitPassiveMountEffects_complete (chunk-HBJ3AJOL.js?v=44844adf:18179:17)
+    at commitPassiveMountEffects_begin (chunk-HBJ3AJOL.js?v=44844adf:18169:15)
+    at commitPassiveMountEffects (chunk-HBJ3AJOL.js?v=44844adf:18159:11)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19543:11)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToGlobalLogEvents @ tauriApi.ts:39
+(anonymous) @ useTauriState.ts:30
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+commitPassiveMountOnFiber @ chunk-HBJ3AJOL.js?v=44844adf:18206
+commitPassiveMountEffects_complete @ chunk-HBJ3AJOL.js?v=44844adf:18179
+commitPassiveMountEffects_begin @ chunk-HBJ3AJOL.js?v=44844adf:18169
+commitPassiveMountEffects @ chunk-HBJ3AJOL.js?v=44844adf:18159
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19543
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToCargoStreamEvents (tauriApi.ts:42:16)
+    at useTauriState.ts:37:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at commitPassiveMountOnFiber (chunk-HBJ3AJOL.js?v=44844adf:18206:19)
+    at commitPassiveMountEffects_complete (chunk-HBJ3AJOL.js?v=44844adf:18179:17)
+    at commitPassiveMountEffects_begin (chunk-HBJ3AJOL.js?v=44844adf:18169:15)
+    at commitPassiveMountEffects (chunk-HBJ3AJOL.js?v=44844adf:18159:11)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19543:11)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToCargoStreamEvents @ tauriApi.ts:42
+(anonymous) @ useTauriState.ts:37
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+commitPassiveMountOnFiber @ chunk-HBJ3AJOL.js?v=44844adf:18206
+commitPassiveMountEffects_complete @ chunk-HBJ3AJOL.js?v=44844adf:18179
+commitPassiveMountEffects_begin @ chunk-HBJ3AJOL.js?v=44844adf:18169
+commitPassiveMountEffects @ chunk-HBJ3AJOL.js?v=44844adf:18159
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19543
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+chunk-EHGI4SLN.js?v=44844adf:22 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'transformCallback')
+    at transformCallback (chunk-EHGI4SLN.js?v=44844adf:22:37)
+    at listen (@tauri-apps_api_event.js?v=44844adf:37:14)
+    at listenToHumanInputRequestEvents (tauriApi.ts:45:16)
+    at useTauriState.ts:40:7
+    at commitHookEffectListMount (chunk-HBJ3AJOL.js?v=44844adf:16963:34)
+    at commitPassiveMountOnFiber (chunk-HBJ3AJOL.js?v=44844adf:18206:19)
+    at commitPassiveMountEffects_complete (chunk-HBJ3AJOL.js?v=44844adf:18179:17)
+    at commitPassiveMountEffects_begin (chunk-HBJ3AJOL.js?v=44844adf:18169:15)
+    at commitPassiveMountEffects (chunk-HBJ3AJOL.js?v=44844adf:18159:11)
+    at flushPassiveEffectsImpl (chunk-HBJ3AJOL.js?v=44844adf:19543:11)
+transformCallback @ chunk-EHGI4SLN.js?v=44844adf:22
+listen @ @tauri-apps_api_event.js?v=44844adf:37
+listenToHumanInputRequestEvents @ tauriApi.ts:45
+(anonymous) @ useTauriState.ts:40
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+commitPassiveMountOnFiber @ chunk-HBJ3AJOL.js?v=44844adf:18206
+commitPassiveMountEffects_complete @ chunk-HBJ3AJOL.js?v=44844adf:18179
+commitPassiveMountEffects_begin @ chunk-HBJ3AJOL.js?v=44844adf:18169
+commitPassiveMountEffects @ chunk-HBJ3AJOL.js?v=44844adf:18159
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19543
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+App.tsx:22 Current view state: Dashboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Dashboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Goals
+App.tsx:22 Current view state: Goals
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Goals
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+useTauriState.ts:22 Failed to get session state: TypeError: Cannot read properties of undefined (reading 'invoke')
+    at invoke (chunk-EHGI4SLN.js?v=44844adf:100:37)
+    at Object.getCurrentSessionState (tauriApi.ts:17:65)
+    at useTauriState.ts:14:14
+overrideMethod @ hook.js:608
+(anonymous) @ useTauriState.ts:22
+Promise.catch
+(anonymous) @ useTauriState.ts:22
+setInterval
+(anonymous) @ useTauriState.ts:45
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+App.tsx:22 Current view state: Goals
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Goals
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Tasks
+App.tsx:22 Current view state: Tasks
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Tasks
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Architecture
+App.tsx:22 Current view state: Architecture
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Architecture
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Learning
+App.tsx:22 Current view state: Learning
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Learning
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Whiteboard
+App.tsx:22 Current view state: Whiteboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Whiteboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+useTauriState.ts:22 Failed to get session state: TypeError: Cannot read properties of undefined (reading 'invoke')
+    at invoke (chunk-EHGI4SLN.js?v=44844adf:100:37)
+    at Object.getCurrentSessionState (tauriApi.ts:17:65)
+    at useTauriState.ts:14:14
+overrideMethod @ hook.js:608
+(anonymous) @ useTauriState.ts:22
+Promise.catch
+(anonymous) @ useTauriState.ts:22
+setInterval
+(anonymous) @ useTauriState.ts:45
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+App.tsx:22 Current view state: Whiteboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Whiteboard
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Knowledge
+App.tsx:22 Current view state: Knowledge
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Knowledge
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Terminal
+App.tsx:22 Current view state: Terminal
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Terminal
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+Nav.tsx:51 Clicking nav item: Settings
+App.tsx:22 Current view state: Settings
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Settings
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+useTauriState.ts:22 Failed to get session state: TypeError: Cannot read properties of undefined (reading 'invoke')
+    at invoke (chunk-EHGI4SLN.js?v=44844adf:100:37)
+    at Object.getCurrentSessionState (tauriApi.ts:17:65)
+    at useTauriState.ts:14:14
+overrideMethod @ hook.js:608
+(anonymous) @ useTauriState.ts:22
+Promise.catch
+(anonymous) @ useTauriState.ts:22
+setInterval
+(anonymous) @ useTauriState.ts:45
+commitHookEffectListMount @ chunk-HBJ3AJOL.js?v=44844adf:16963
+invokePassiveEffectMountInDEV @ chunk-HBJ3AJOL.js?v=44844adf:18374
+invokeEffectsInDev @ chunk-HBJ3AJOL.js?v=44844adf:19754
+commitDoubleInvokeEffectsInDEV @ chunk-HBJ3AJOL.js?v=44844adf:19739
+flushPassiveEffectsImpl @ chunk-HBJ3AJOL.js?v=44844adf:19556
+flushPassiveEffects @ chunk-HBJ3AJOL.js?v=44844adf:19500
+(anonymous) @ chunk-HBJ3AJOL.js?v=44844adf:19381
+workLoop @ chunk-HBJ3AJOL.js?v=44844adf:197
+flushWork @ chunk-HBJ3AJOL.js?v=44844adf:176
+performWorkUntilDeadline @ chunk-HBJ3AJOL.js?v=44844adf:384
+App.tsx:22 Current view state: Settings
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view
+App.tsx:22 Current view state: Settings
+App.tsx:35 renderView - isLoading: false sessionState: null project_path: undefined
+App.tsx:42 No project path found, forcing Goals view

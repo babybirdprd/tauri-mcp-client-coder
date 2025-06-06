@@ -47,7 +47,10 @@ const Nav: React.FC<NavProps> = ({ setCurrentView, currentView }) => {
       </div>
       <ul className="flex-grow">
         {views.map(view => (
-          <NavItem key={view.label} icon={view.icon} label={view.label} isActive={currentView === view.label} onClick={() => setCurrentView(view.label)} />
+          <NavItem key={view.label} icon={view.icon} label={view.label} isActive={currentView === view.label} onClick={() => {
+            console.log('Clicking nav item:', view.label);
+            setCurrentView(view.label);
+          }} />
         ))}
       </ul>
       <div className="text-xs text-text-tertiary mt-4 px-3">Version 0.1.0</div>
