@@ -4,6 +4,7 @@ import type {
   ProjectSettings, CurrentProjectSession, SpecFile, Task, CrateInfo,
   TantivySearchResultItem, GlobalLogEntry, ArchitectureGraph
 } from '../types';
+import { searchCode, executeQuery, extractFromFile } from './probeApi';
 
 export const tauriApi = {
   // Settings
@@ -32,6 +33,11 @@ export const tauriApi = {
   // Advanced Features
   getArchitectureGraph: (): Promise<ArchitectureGraph> => invoke("get_architecture_graph"),
   // TODO: Add commands for Solution Patterns, Correction History, Code Gardener tasks
+  
+  // Probe APIs
+  probeSearchCode: searchCode,
+  probeExecuteQuery: executeQuery,
+  probeExtractFromFile: extractFromFile
 };
 
 // Event Listeners

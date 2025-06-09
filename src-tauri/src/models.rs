@@ -1,4 +1,5 @@
 use serde::{Serialize, Deserialize};
+use std::path::PathBuf;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct ProjectSettings {
@@ -96,4 +97,70 @@ pub enum LogLevel { Info, Warn, Error, Debug, AgentTrace, HumanInput, LLMTrace }
 pub struct GlobalLogEntry {
     pub id: String, pub timestamp: u64, pub level: LogLevel, pub component: String,
     pub message: String, pub task_id: Option<String>, pub details: Option<serde_json::Value>,
+}
+
+impl GlobalLogEntry {
+    pub fn info(
+        component: String,
+        message: String,
+        task_id: Option<String>,
+        details: Option<serde_json::Value>,
+    ) -> Self {
+        Self {
+            id: uuid::Uuid::new_v4().to_string(),
+            timestamp: std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_millis() as u64,
+            level: LogLevel::Info,
+            component,
+            message,
+            task_id,
+            details,
+        }
+    }
+    
+    pub fn error(
+        component: String,
+        message: String,
+        task_id: Option<String>,
+        details: Option<serde_json::Value>,
+    ) -> Self {
+        Self {
+            id: uuid::Uuid::new_v4().to_string(),
+            timestamp: std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_millis() as u64,
+            level: LogLevel::Error,
+            component,
+            message,
+            task_id,
+            details,
+        }
+    }
+}
+
+// --- Probe-specific models ---
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ProbeSearchResult {
+    pub file_path: String,
+    pub line_number: usize,
+    pub code_snippet: String,
+    pub context_before: Vec<String>,
+    pub context_after: Vec<String>,
+    pub language: Option<String>,
+    pub score: f32,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ProbeCodeBlock {
+    pub file_path: String,
+    pub code: String,
+    pub language: String,
+    pub start_line: usize,
+    pub end_line: usize,
+    pub symbols: Vec<String>,
+    pub doc_comments: Option<String>,
 }

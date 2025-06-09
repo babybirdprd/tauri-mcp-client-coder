@@ -3,6 +3,7 @@ use crate::agents::planner::PlannerAgent;
 use crate::models::{CrateInfo, GlobalLogEntry, ProjectSettings, ProjectStatus, Task};
 use crate::services::knowledge_manager::KnowledgeManagerService;
 use crate::services::workspace::WorkspaceService;
+use crate::services::probe_service::ProbeService;
 use parking_lot::Mutex;
 use std::sync::Arc;
 // HumanInterfaceService is more about how commands interact with AppHandle, not stored directly here.
@@ -23,6 +24,7 @@ pub struct CurrentProjectSession {
 pub struct AppServices {
     pub workspace_service: Arc<Mutex<WorkspaceService>>,
     pub knowledge_manager_service: Arc<Mutex<KnowledgeManagerService>>,
+    pub probe_service: Arc<Mutex<ProbeService>>,
 }
 
 pub struct AppAgents {
@@ -53,10 +55,12 @@ impl AppState {
             workspace_service.clone(),
             baml_client.clone(),
         )));
+        let probe_service = Arc::new(Mutex::new(ProbeService::new()));
 
         let services = Arc::new(AppServices {
             workspace_service: workspace_service.clone(),
             knowledge_manager_service,
+            probe_service,
         });
 
         let agents = Arc::new(AppAgents {

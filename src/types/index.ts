@@ -133,3 +133,24 @@ export interface ArchitectureGraph {
   nodes: ArchitectureNode[];
   edges: ArchitectureEdge[];
 }
+
+// Probe-related types
+export interface ProbeSearchResult {
+  filePath: string;
+  lineNumber: number;
+  codeSnippet: string;
+  contextBefore: string[];
+  contextAfter: string[];
+  language?: string;
+  score: number;
+}
+
+export interface ProbeCodeBlock {
+  filePath: string;
+  code: string;
+  language: string;
+  startLine: number;
+  endLine: number;
+  symbols: string[];
+  docComments?: string;
+}

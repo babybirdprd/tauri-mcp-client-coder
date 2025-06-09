@@ -13,6 +13,9 @@ mod models;
 mod scaffolder;
 mod services;
 
+// Import probe commands
+use crate::services::probe_commands::{probe_extract_from_file, probe_execute_query, probe_search_code};
+
 // --- Imports ---
 use app_state::AppState;
 use error::{AppError, Result as AppResult};
@@ -895,7 +898,11 @@ fn main() {
             get_crate_info_cmd,
             approve_crate_cmd,
             rebuild_project_search_index,
-            search_project_globally
+            search_project_globally,
+            // Probe commands
+            probe_search_code,
+            probe_execute_query,
+            probe_extract_from_file
         ])
         .setup(|app| {
             let handle = app.handle().clone();
